@@ -35,12 +35,20 @@ app.get('/api/scripts', (req, res) => {
     const today = new Date().toISOString().split('T')[0];
     const scriptFile = path.join(__dirname, `../output/scripts-${today}.json`);
 
-    if (fs.existsSync(scriptFile)) {
-      const scripts = JSON.parse(fs.readFileSync(scriptFile, 'utf-8'));
-      res.json(scripts);
-    } else {
-      res.json({ scripts: [], message: 'No scripts generated yet. Run generator first.' });
+    // Try to read from file first
+    try {
+      if (fs.existsSync(scriptFile)) {
+        const scripts = JSON.parse(fs.readFileSync(scriptFile, 'utf-8'));
+        return res.json(scripts);
+      }
+    } catch (readError) {
+      console.log('Could not read from file');
     }
+
+    // If no file, generate fresh scripts
+    const scriptEngine = require('../scripts/script-engine');
+    const scripts = scriptEngine.generateDailyScripts();
+    res.json(scripts);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -54,14 +62,17 @@ app.post('/api/scripts/generate', (req, res) => {
     const scriptEngine = require('../scripts/script-engine');
     const scripts = scriptEngine.generateDailyScripts();
     
-    // Save to file
-    const outputDir = path.join(__dirname, '../output');
-    if (!fs.existsSync(outputDir)) {
-      fs.mkdirSync(outputDir, { recursive: true });
+    // Try to save to file (works locally, ignored on Vercel serverless)
+    try {
+      const outputDir = path.join(__dirname, '../output');
+      if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir, { recursive: true });
+      }
+      const scriptFile = path.join(outputDir, `scripts-${scripts.date}.json`);
+      fs.writeFileSync(scriptFile, JSON.stringify(scripts, null, 2));
+    } catch (writeError) {
+      console.log('Note: File write skipped (Vercel serverless environment)');
     }
-    
-    const scriptFile = path.join(outputDir, `scripts-${scripts.date}.json`);
-    fs.writeFileSync(scriptFile, JSON.stringify(scripts, null, 2));
 
     res.json({
       success: true,
@@ -69,7 +80,7 @@ app.post('/api/scripts/generate', (req, res) => {
       scripts: scripts
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message, stack: error.stack });
   }
 });
 
