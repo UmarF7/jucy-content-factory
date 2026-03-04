@@ -1,26 +1,4 @@
-{
-  "version": 2,
-  "functions": {
-    "api/**/*.js": {
-      "memory": 1024,
-      "maxDuration": 60
-    }
-  },
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/index.js",
-      "headers": {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS"
-      }
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/api/index.js"
-    }
-  ],
-  "env": {
-    "VERCEL_URL": "@vercel_url"
-  }
-}
+version: 2
+buildCommand: npm install
+env:
+  NODE_ENV: production
