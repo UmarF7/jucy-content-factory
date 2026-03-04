@@ -579,17 +579,38 @@
         btn.disabled = true;
         btn.textContent = 'Generating...';
 
-        const response = await fetch('/api/scripts/generate', { method: 'POST' });
+        const response = await fetch('/api/scripts/generate', { 
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({})
+        });
+
+        if (!response.ok) {
+          const text = await response.text();
+          console.error('Response status:', response.status);
+          console.error('Response body:', text);
+          throw new Error(`API returned ${response.status}: ${text.substring(0, 100)}`);
+        }
+
         const data = await response.json();
 
         btn.disabled = false;
         btn.textContent = '+ Generate Scripts';
 
         if (data.success) {
+          alert('✅ Scripts generated successfully!');
           loadScripts();
+        } else if (data.scripts) {
+          alert('✅ Scripts generated successfully!');
+          loadScripts();
+        } else {
+          alert('⚠️ Response: ' + JSON.stringify(data));
         }
       } catch (error) {
-        alert('Error generating scripts: ' + error.message);
+        console.error('Full error:', error);
+        alert('Error generating scripts:\n' + error.message + '\n\nCheck browser console for details.');
         event.target.disabled = false;
         event.target.textContent = '+ Generate Scripts';
       }
