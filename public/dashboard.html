@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JUCY CLEANSE — Content Factory</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #7eff9f;
+      --dark: #0f2818;
+      --darker: #051109;
+      --surface: rgba(31, 41, 55, 0.8);
+      --border: #374151;
+      --text: #fff;
+      --text-muted: #9ca3af;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .header {
+      background: rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid var(--border);
+      padding: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header h1 {
+      font-size: 1.8rem;
+      color: var(--primary);
+    }
+
+    .header-actions button {
+      background: var(--primary);
+      color: var(--dark);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-left: 10px;
+      transition: all 0.2s;
+    }
+
+    .header-actions button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(126, 255, 159, 0.3);
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    .status-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .status-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .status-value {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--primary);
+      margin: 10px 0;
+    }
+
+    .status-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .scripts-section {
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--primary);
+    }
+
+    .scripts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 20px;
+    }
+
+    .script-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      transition: all 0.2s;
+    }
+
+    .script-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 10px 30px rgba(126, 255, 159, 0.1);
+    }
+
+    .script-card.approved {
+      border-color: #4ade80;
+      background: rgba(74, 222, 128, 0.05);
+    }
+
+    .script-card.rejected {
+      border-color: #ef4444;
+      background: rgba(239, 68, 68, 0.05);
+      opacity: 0.7;
+    }
+
+    .script-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 15px;
+    }
+
+    .script-type {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(126, 255, 159, 0.2);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: var(--primary);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .script-status {
+      font-size: 0.85rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: rgba(255, 193, 7, 0.2);
+      color: #ffc107;
+      font-weight: 600;
+    }
+
+    .script-status.approved {
+      background: rgba(74, 222, 128, 0.2);
+      color: #4ade80;
+    }
+
+    .script-status.rejected {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+    }
+
+    .script-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .script-hook {
+      font-size: 0.95rem;
+      color: #d1d5db;
+      font-style: italic;
+      margin-bottom: 15px;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.2);
+      border-left: 3px solid var(--primary);
+      border-radius: 4px;
+    }
+
+    .script-body {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #d1d5db;
+      max-height: 150px;
+      overflow-y: auto;
+      margin-bottom: 15px;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+    }
+
+    .script-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.9rem;
+      flex: 1;
+      min-width: 100px;
+    }
+
+    .btn-approve {
+      background: #4ade80;
+      color: #1a2e1b;
+    }
+
+    .btn-approve:hover {
+      background: #22c55e;
+      transform: translateY(-2px);
+    }
+
+    .btn-reject {
+      background: #ef4444;
+      color: white;
+    }
+
+    .btn-reject:hover {
+      background: #dc2626;
+      transform: translateY(-2px);
+    }
+
+    .btn-view {
+      background: #3b82f6;
+      color: white;
+      flex: 0 1 auto;
+    }
+
+    .btn-view:hover {
+      background: #2563eb;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-muted);
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 4px solid var(--border);
+      border-top: 4px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+
+    .empty-state h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 30px;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .modal-close {
+      float: right;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    .modal-close:hover {
+      color: var(--text);
+    }
+
+    .hashtags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .hashtag {
+      padding: 4px 10px;
+      background: rgba(126, 255, 159, 0.1);
+      border: 1px solid var(--primary);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-content">
+      <h1>🌿 JUCY CLEANSE</h1>
+      <div class="header-actions">
+        <button onclick="generateScripts()">+ Generate Scripts</button>
+        <button onclick="publishScripts()" style="background: #3b82f6;">🚀 Publish</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Status Bar -->
+    <div class="status-bar" id="statusBar">
+      <div class="status-card">
+        <div class="status-label">Today's Date</div>
+        <div class="status-value" id="dateDisplay">—</div>
+      </div>
+      <div class="status-card">
+        <div class="status-label">Total Scripts</div>
+        <div class="status-value" id="totalScripts">0</div>
+      </div>
+      <div class="status-card">
+        <div class="status-label">Approved</div>
+        <div class="status-value" id="approvedCount">0</div>
+      </div>
+      <div class="status-card">
+        <div class="status-label">Pending</div>
+        <div class="status-value" id="pendingCount">0</div>
+      </div>
+      <div class="status-card">
+        <div class="status-label">Rejected</div>
+        <div class="status-value" id="rejectedCount">0</div>
+      </div>
+    </div>
+
+    <!-- Scripts Section -->
+    <div class="scripts-section">
+      <h2 class="section-title">📝 Today's Scripts</h2>
+      <div id="scriptsContainer" class="scripts-grid">
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>Loading scripts...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script Detail Modal -->
+  <div id="scriptModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal()">&times;</span>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    let currentScripts = null;
+
+    async function loadScripts() {
+      try {
+        const response = await fetch('/api/scripts');
+        const data = await response.json();
+        currentScripts = data;
+        renderScripts(data.scripts || []);
+        updateStatus();
+      } catch (error) {
+        console.error('Error loading scripts:', error);
+        document.getElementById('scriptsContainer').innerHTML = `
+          <div class="empty-state">
+            <h2>No scripts yet</h2>
+            <p>Click "Generate Scripts" to create today's UGC videos</p>
+          </div>
+        `;
+      }
+    }
+
+    function renderScripts(scripts) {
+      if (scripts.length === 0) {
+        document.getElementById('scriptsContainer').innerHTML = `
+          <div class="empty-state">
+            <h2>No scripts generated</h2>
+            <p>Click "Generate Scripts" to get started</p>
+          </div>
+        `;
+        return;
+      }
+
+      const html = scripts.map((script, index) => `
+        <div class="script-card ${script.approved ? 'approved' : script.approved === false ? 'rejected' : ''}">
+          <div class="script-header">
+            <span class="script-type">${script.template.replace(/_/g, ' ')}</span>
+            <span class="script-status ${script.approved ? 'approved' : script.approved === false ? 'rejected' : ''}">
+              ${script.approved ? '✓ Approved' : script.approved === false ? '✗ Rejected' : 'Pending'}
+            </span>
+          </div>
+
+          <div class="script-title">${script.title}</div>
+
+          <div class="script-hook">"${script.hook}"</div>
+
+          <div class="script-body">${script.body.substring(0, 150)}...</div>
+
+          <div class="script-meta">
+            <span class="meta-item">⏱️ ${script.length}</span>
+            <span class="meta-item">📊 ${script.engagement_prediction}</span>
+          </div>
+
+          <div class="actions">
+            <button class="btn-approve" onclick="approveScript(${index})">✓ Approve</button>
+            <button class="btn-reject" onclick="rejectScript(${index})">✗ Reject</button>
+            <button class="btn-view" onclick="viewScript(${index})">View</button>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('scriptsContainer').innerHTML = html;
+    }
+
+    function viewScript(index) {
+      const script = currentScripts.scripts[index];
+      const modal = document.getElementById('scriptModal');
+      const body = document.getElementById('modalBody');
+
+      body.innerHTML = `
+        <h2>${script.title}</h2>
+        <div class="script-meta" style="margin: 15px 0;">
+          <span>${script.length}</span>
+          <span>${script.engagement_prediction}</span>
+        </div>
+
+        <h3 style="margin-top: 20px; color: var(--primary);">Hook</h3>
+        <p style="margin: 10px 0; color: #d1d5db;">${script.hook}</p>
+
+        <h3 style="margin-top: 20px; color: var(--primary);">Body</h3>
+        <p style="margin: 10px 0; color: #d1d5db; white-space: pre-wrap;">${script.body}</p>
+
+        <h3 style="margin-top: 20px; color: var(--primary);">Conclusion</h3>
+        <p style="margin: 10px 0; color: #d1d5db; white-space: pre-wrap;">${script.conclusion}</p>
+
+        <h3 style="margin-top: 20px; color: var(--primary);">Captions by Platform</h3>
+        ${Object.entries(script.captions).map(([platform, caption]) => `
+          <div style="margin: 15px 0;">
+            <strong>${platform.toUpperCase()}:</strong>
+            <p style="color: #d1d5db; margin-top: 5px; white-space: pre-wrap;">${caption}</p>
+          </div>
+        `).join('')}
+
+        <h3 style="margin-top: 20px; color: var(--primary);">Hashtags</h3>
+        <div class="hashtags">
+          ${script.hashtags.map(tag => `<span class="hashtag">${tag}</span>`).join('')}
+        </div>
+
+        <h3 style="margin-top: 20px; color: var(--primary);">Visual Guide</h3>
+        ${script.visuals.map(v => `<p style="color: #d1d5db; margin: 8px 0;">• ${v}</p>`).join('')}
+      `;
+
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('scriptModal').classList.remove('active');
+    }
+
+    async function approveScript(index) {
+      try {
+        const today = currentScripts.date;
+        await fetch('/api/scripts/approve', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ date: today, index })
+        });
+        currentScripts.scripts[index].approved = true;
+        renderScripts(currentScripts.scripts);
+        updateStatus();
+      } catch (error) {
+        alert('Error approving script: ' + error.message);
+      }
+    }
+
+    async function rejectScript(index) {
+      try {
+        const today = currentScripts.date;
+        await fetch('/api/scripts/reject', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ date: today, index })
+        });
+        currentScripts.scripts[index].approved = false;
+        renderScripts(currentScripts.scripts);
+        updateStatus();
+      } catch (error) {
+        alert('Error rejecting script: ' + error.message);
+      }
+    }
+
+    async function generateScripts() {
+      try {
+        const btn = event.target;
+        btn.disabled = true;
+        btn.textContent = 'Generating...';
+
+        const response = await fetch('/api/scripts/generate', { method: 'POST' });
+        const data = await response.json();
+
+        btn.disabled = false;
+        btn.textContent = '+ Generate Scripts';
+
+        if (data.success) {
+          loadScripts();
+        }
+      } catch (error) {
+        alert('Error generating scripts: ' + error.message);
+        event.target.disabled = false;
+        event.target.textContent = '+ Generate Scripts';
+      }
+    }
+
+    async function publishScripts() {
+      const approved = currentScripts.scripts.filter(s => s.approved).length;
+      if (approved === 0) {
+        alert('No approved scripts to publish');
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/videos/publish', { method: 'POST' });
+        const data = await response.json();
+        alert('✅ ' + approved + ' videos scheduled for publishing!');
+      } catch (error) {
+        alert('Error: ' + error.message);
+      }
+    }
+
+    function updateStatus() {
+      const scripts = currentScripts.scripts || [];
+      const approved = scripts.filter(s => s.approved === true).length;
+      const rejected = scripts.filter(s => s.approved === false).length;
+      const pending = scripts.length - approved - rejected;
+
+      document.getElementById('dateDisplay').textContent = currentScripts.date || '—';
+      document.getElementById('totalScripts').textContent = scripts.length;
+      document.getElementById('approvedCount').textContent = approved;
+      document.getElementById('pendingCount').textContent = pending;
+      document.getElementById('rejectedCount').textContent = rejected;
+    }
+
+    // Load on page load
+    loadScripts();
+  </script>
+</body>
+</html>

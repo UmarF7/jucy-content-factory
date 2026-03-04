@@ -4,13 +4,14 @@
   "description": "Automated viral UGC video generation system for JUCY CLEANSE",
   "main": "index.js",
   "scripts": {
-    "generate-scripts": "node scripts/script-generator.js",
+    "start": "node server.js",
+    "dev": "node server.js",
+    "generate-scripts": "node scripts/script-generator-v2.js",
     "generate-videos": "node scripts/higgsfield-integration.js generate-all",
     "publish-all": "node scripts/publish-scheduler.js schedule-all",
     "status": "node scripts/publish-scheduler.js status",
-    "dashboard": "open dashboard/index.html",
     "setup": "npm install && echo 'Setup complete! Copy .env.example to .env and configure your API keys'",
-    "daily": "npm run generate-scripts && echo 'Scripts generated! Open dashboard/index.html to review.'"
+    "daily": "npm run generate-scripts && echo 'Scripts generated! Open http://localhost:3000/dashboard to review.'"
   },
   "keywords": [
     "jucy",
@@ -28,7 +29,8 @@
   "dependencies": {
     "axios": "^1.6.0",
     "dotenv": "^16.0.0",
-    "sqlite3": "^5.1.6"
+    "sqlite3": "^5.1.6",
+    "express": "^4.18.0"
   },
   "devDependencies": {},
   "engines": {
