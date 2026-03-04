@@ -1,0 +1,38 @@
+{
+  "brand": {
+    "name": "JUCY CLEANSE",
+    "website": "jucycleanse.co.uk",
+    "social": {
+      "tiktok": "@jucycleanse",
+      "instagram": "@jucycleanse",
+      "youtube": "@jucycleanse"
+    }
+  },
+  "product": {
+    "name": "Cold-Pressed Juice Cleanse",
+    "types": ["1-day refresh", "3-day cleanse", "5-day deep cleanse", "custom cleanse", "ginger shots"],
+    "key_benefits": ["natural energy", "improved digestion", "stronger immunity", "weight loss support"],
+    "ingredients": ["raw juice", "cold-pressed", "100% natural", "no additives"],
+    "guarantee": "Feel the Difference or Your Money Back"
+  },
+  "audience": {
+    "primary": "women aged 25-45",
+    "goal": "weight loss, health, wellness",
+    "pain_points": ["bloating", "low energy", "poor digestion", "lack of confidence"],
+    "interests": ["fitness", "wellness", "health", "clean eating", "natural products"]
+  },
+  "brand_voice": {
+    "tone": "motivational, scientific, approachable",
+    "style": "real results, no BS, premium feel",
+    "emoji_style": "wellness-focused (🌿 💚 💧)",
+    "format": "short, punchy, action-oriented"
+  },
+  "posting_schedule": {
+    "frequency": "5 videos per day",
+    "best_times": {
+      "tiktok": ["7am", "12pm", "5pm", "8pm"],
+      "instagram": ["9am", "1pm", "6pm", "8pm"],
+      "youtube": ["10am", "3pm", "7pm"]
+    }
+  }
+}

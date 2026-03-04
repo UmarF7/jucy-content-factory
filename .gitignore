@@ -1,0 +1,16 @@
+node_modules/
+.env
+.env.local
+.env.*.local
+*.log
+.DS_Store
+output/videos/
+output/*.json
+.vercel
+.git
+analytics.db
+videos/
+.idea/
+.vscode/
+*.swp
+*.swo

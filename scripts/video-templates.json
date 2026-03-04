@@ -1,0 +1,111 @@
+{
+  "templates": {
+    "problem_solution": {
+      "name": "Problem → Solution (Direct Response)",
+      "goal": "Stop the scroll, trigger emotion, show solution",
+      "hook_examples": [
+        "If you're constantly bloated, watch this.",
+        "I didn't realise THIS was causing my low energy.",
+        "Nobody talks about this when trying to get healthier…",
+        "Your digestion might be broken (here's the fix).",
+        "This ONE thing made me lose 5 lbs in a week.",
+        "Stop wasting money on supplements…"
+      ],
+      "structure": {
+        "hook": "Problem statement (3 seconds)",
+        "scene_1": "Show the problem (relatable situation)",
+        "scene_2": "Introduce JUCY as solution",
+        "scene_3": "Show result/transformation",
+        "cta": "Link in bio / Shop now"
+      },
+      "voiceover": "Problem-driven, urgent but not pushy",
+      "editing": "Fast cuts, B-roll of problem scenario, product reveal, results montage",
+      "length": "15-20 seconds"
+    },
+    "testimonial": {
+      "name": "Testimonial / Social Proof",
+      "goal": "Build trust with real results",
+      "hook_examples": [
+        "Day 3 of using this and here's what I noticed.",
+        "I was sceptical at first…",
+        "Real review on TrustPilot / Instagram comments",
+        "Unboxing + first reaction",
+        "POV: You finally try the cleanse that actually works"
+      ],
+      "structure": {
+        "hook": "Real person testimonial (2 seconds)",
+        "scene_1": "Show transformation/results",
+        "scene_2": "Specific benefits mentioned",
+        "scene_3": "Before/After if applicable",
+        "cta": "Join thousands who've tried it"
+      },
+      "voiceover": "Authentic, real customer voice or on-screen text",
+      "editing": "Genuine reactions, unboxing footage, product shots",
+      "length": "15-20 seconds"
+    },
+    "benefits_breakdown": {
+      "name": "Benefits Breakdown",
+      "goal": "Educate + justify purchase",
+      "hook_examples": [
+        "Here's why this actually works.",
+        "3 reasons this is better than store-bought.",
+        "What happens when you take this for 5 days.",
+        "Cold-pressed vs regular juice (the difference is crazy).",
+        "Why your gut needs THIS"
+      ],
+      "structure": {
+        "hook": "Benefit statement (2 seconds)",
+        "scene_1": "Benefit #1 + explanation",
+        "scene_2": "Benefit #2 + explanation",
+        "scene_3": "Benefit #3 + summary",
+        "cta": "Learn more / Shop"
+      },
+      "voiceover": "Educational, fast-paced, scientific but simple",
+      "editing": "Text overlays, ingredient footage, infographics, quick cuts",
+      "length": "18-22 seconds"
+    },
+    "objection_handler": {
+      "name": "Objection Handling",
+      "goal": "Remove buying friction",
+      "hook_examples": [
+        "Will you be hungry?",
+        "Is it safe?",
+        "Is it worth the price?",
+        "Can I still work while doing this?",
+        "Won't I miss solid food?",
+        "Is it just a scam?"
+      ],
+      "structure": {
+        "hook": "Common objection as question (2 seconds)",
+        "scene_1": "Acknowledge the concern",
+        "scene_2": "Provide honest answer",
+        "scene_3": "Show proof/guarantee",
+        "cta": "Money-back guarantee link"
+      },
+      "voiceover": "Honest, reassuring, solution-focused",
+      "editing": "Direct to camera, text overlays, guarantee badge",
+      "length": "15-20 seconds"
+    },
+    "lifestyle_identity": {
+      "name": "Lifestyle / Identity",
+      "goal": "Sell the vibe, build aspiration",
+      "hook_examples": [
+        "POV: You finally take your health seriously.",
+        "Morning routine with JUCY cleanse.",
+        "Gym → cleanse → productivity.",
+        "What I do every Monday for a fresh week.",
+        "Wellness prep Sunday with JUCY."
+      ],
+      "structure": {
+        "hook": "Lifestyle scenario (2 seconds)",
+        "scene_1": "Morning/routine setup",
+        "scene_2": "JUCY integrated naturally",
+        "scene_3": "Results/confidence vibe",
+        "cta": "Be part of the wellness club"
+      },
+      "voiceover": "Minimal talking. Atmospheric. Motivational background track.",
+      "editing": "Cinematic B-roll, gym footage, morning routine, no heavy text",
+      "length": "15-22 seconds"
+    }
+  }
+}

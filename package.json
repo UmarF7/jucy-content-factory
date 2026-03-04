@@ -1,0 +1,37 @@
+{
+  "name": "jucy-cleanse-content-factory",
+  "version": "1.0.0",
+  "description": "Automated viral UGC video generation system for JUCY CLEANSE",
+  "main": "index.js",
+  "scripts": {
+    "generate-scripts": "node scripts/script-generator.js",
+    "generate-videos": "node scripts/higgsfield-integration.js generate-all",
+    "publish-all": "node scripts/publish-scheduler.js schedule-all",
+    "status": "node scripts/publish-scheduler.js status",
+    "dashboard": "open dashboard/index.html",
+    "setup": "npm install && echo 'Setup complete! Copy .env.example to .env and configure your API keys'",
+    "daily": "npm run generate-scripts && echo 'Scripts generated! Open dashboard/index.html to review.'"
+  },
+  "keywords": [
+    "jucy",
+    "cleanse",
+    "ugc",
+    "tiktok",
+    "instagram",
+    "youtube",
+    "viral",
+    "content",
+    "automation"
+  ],
+  "author": "JUCY CLEANSE",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "dotenv": "^16.0.0",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
